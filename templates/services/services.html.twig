@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des services{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <h2>Liste des services.</h2>
+        <hr />
+        {% for service in services %}
+
+            <h2>{{ service.name }}</h2>
+
+            <p>
+                {{ service.description }}
+            </p>
+
+            <a href="{{ path('service_show',{'id':service.id}) }}" class="btn btn-primary">Plus d'info ...</a>
+            <br />
+        {% endfor %}
+    {% endblock %}
+
+
+{% endblock %}
