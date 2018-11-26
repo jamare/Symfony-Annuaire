@@ -19,59 +19,59 @@ abstract class User
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adressNumber;
+    protected $adressNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adress;
+    protected $adress;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $banished;
+    protected $banished = false;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $confirmed;
+    protected $confirmed;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $registration;
+    protected $registration;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $attempt;
+    protected $attempt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CodePostal", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $code_postal;
+    protected $code_postal;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Localite", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $localite;
+    protected $localite;
 
     public function getId(): ?int
     {

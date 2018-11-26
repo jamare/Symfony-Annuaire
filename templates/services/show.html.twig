@@ -2,10 +2,17 @@
 
 {% block body %}
     {% block content %}
-        <h2>Détail de l'article:</h2>
-        <h2>{{ service.name }}</h2>
+        <h2>Détails du service :</h2>
+        <h3>{{ service.name }}</h3>
         <hr />
+        {% dump(service) %}
         {{ service.description }}
+        <ul>
+            {% for provider in service.providers%}
+                <b>Prestataire :</b><a href="{{ path('show_provider',{'id':provider.id}) }}">{{ provider.name }}</a>
+
+            {% endfor %}
+        </ul>
 
     {% endblock %}
 
