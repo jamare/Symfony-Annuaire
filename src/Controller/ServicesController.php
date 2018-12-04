@@ -12,15 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ServicesController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function index(){
-        return $this->render('Services/index.html.twig', [
-            'controller_name' => 'ServicesController',
-        ]);
-
-    }
 
     /**
      * @Route("/services", name="services")
@@ -45,32 +36,14 @@ class ServicesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/providers", name="providers")
-     */
-    public function provider_list(ProviderRepository $repo){
-        $providers=$repo->findAll();
-        return $this->render('Services/providers.html.twig',[
-            'controller_name' =>'ServicesController',
-            'provider' => $providers
-        ]);
-    }
 
-    /**
-     * @Route("/provider/{id}", name="show_provider")
-     */
-    public function showProvider(Provider $providers)
-    {
-        return $this->render('services/show_provider.html.twig', [
-            'controller_name' => 'ServicesController',
-            'provider' => $providers
-        ]);
-    }
 
     public function getRepo(){
         /**@var ServicesRepository $sr */
         $sr = $this->getDoctrine()->getRepository(Services::class);
         return $sr;
     }
+
+
 
 }

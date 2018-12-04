@@ -131,33 +131,53 @@
     <div class="main">
         <div class="main-inner">
             <div class="content">
-                <div class="mt-80">
+                <!--<div class="mt-80">
                     <div class="hero-image">
                         <div class="hero-image-inner" style="background-image: url('assets/img/tmp/slider-large-3.jpg');">
                             <div class="hero-image-content">
                                 <div class="container">
                                     <h1>Mon service bien-être</h1>
 
-                                    <p>Create your own directory website by using Superlist template <br> incorporating all features of modern directory website.</p>
+                                    <p>Create your own directory website by using Superlist template <br>
+                                        incorporating all features of modern directory website.</p>
 
 
                                 </div><!-- /.container -->
-                            </div><!-- /.hero-image-content -->
+                            <!--</div><!-- /.hero-image-content -->
 
-                            <div class="hero-image-form-wrapper">
+                            <!--<div class="hero-image-form-wrapper">
                                 <div class="container">
                                     <div class="row">
 
 
                                     </div><!-- /.row -->
-                                </div><!-- /.container -->
-                            </div><!-- /.hero-image-form-wrapper -->
-                        </div><!-- /.hero-image-inner -->
-                    </div><!-- /.hero-image -->
+                                <!--</div><!-- /.container -->
+                <!--</div><!-- /.hero-image-form-wrapper -->
+                <!--</div><!-- /.hero-image-inner -->
+                <!--</div><!-- /.hero-image -->
 
-                </div>
+                <!-- </div>-->
 
                 <div class="container">
+                    <div >
+                        <h2>Recherche :</h2>
+                        <form class="filter">
+                            <input type="text" id="search" name="search" placeholder="Mot clé"><br />
+                            <label for="category">Categorie</label>
+                            <select name="category">
+                                <option value="cat1">Cat1</option>
+                                <option value="cat2">Cat2</option>
+                                <option value="cat3">Cat3</option>
+                            </select>
+                            <!--<label for="provider">Prestataire</label>
+                            <select name="provider">
+                                <option value="prest1">Prest1</option>
+                                <option value="prest2">Prest2</option>
+                                <option value="prest3">Prest3</option>
+                            </select>-->
+                        </form>
+                    </div>
+
 
                     {% block content %}
 

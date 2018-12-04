@@ -7,9 +7,10 @@
         <hr />
         {% dump(service) %}
         {{ service.description }}
+        <h2>Prestataire :</h2>
         <ul>
             {% for provider in service.providers%}
-                <b>Prestataire :</b><a href="{{ path('show_provider',{'id':provider.id}) }}">{{ provider.name }}</a>
+                <a href="{{ path('show_provider',{'id':provider.id}) }}">{{ provider.name }}</a>
 
             {% endfor %}
         </ul>

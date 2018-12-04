@@ -47,4 +47,13 @@ class ProviderRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findNLast(){
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.services','s')
+            ->addSelect('s')
+            ->orderBy('p.registration','DESC');
+           // ->setMaxResults($n);
+
+        return $qb->getQuery()->getResult();
+    }
 }

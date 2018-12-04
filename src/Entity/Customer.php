@@ -66,4 +66,9 @@ class Customer extends User
 
         return $this;
     }
+
+    /*function __toString()
+    {
+        return $this->getFirstName()." ".$this->getName();
+    }*/
 }
