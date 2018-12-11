@@ -5,22 +5,60 @@
 {% block body %}
 
     {% block content %}
-        <div class="document-title">
-            <h2>Liste des services.</h2>
-        </div>
+
+            <div class="document-title">
+                <h1>Liste des services.</h1>
+            </div>
+
+        {{ parent() }}
 
         <hr />
-        {% for service in services %}
+        <h2 class="page-title">
+            1802 results matching your query
 
-            <h2>{{ service.name }}</h2>
+            <form method="get" action="?" class="filter-sort">
+                <div class="form-group">
+                    <select title="Sort by">
+                        <option name="price">Price</option>
+                        <option name="rating">Rating</option>
+                        <option name="title">Title</option>
+                    </select>
+                </div><!-- /.form-group -->
 
-            <p>
-                {{ service.description }}
-            </p>
+                <div class="form-group">
+                    <select title="Order">
+                        <option name="ASC">Asc</option>
+                        <option name="DESC">Desc</option>
+                    </select>
+                </div><!-- /.form-group -->
+            </form>
 
-            <a href="{{ path('service_show',{'id':service.id}) }}" class="btn btn-primary">Plus d'info ...</a>
-            <br />
-        {% endfor %}
+        </h2><!-- /.page-title -->
+        <div class="cards-row">
+            {% for service in services %}
+            <div class="card-row">
+                <div class="card-row-inner">
+                    <div class="card-row-image" data-background-image="assets/img/tmp/product-1.jpg">
+
+                    </div><!-- /.card-row-image -->
+
+                    <div class="card-row-body">
+                        <h2 class="card-row-title"><a href="{{ path('service_show',{'id':service.id}) }}">{{ service.name }}</a></h2>
+                        <div class="card-row-content"><p>{{ service.description }}</p></div><!-- /.card-row-content -->
+                    </div><!-- /.card-row-body -->
+
+
+                </div><!-- /.card-row-inner -->
+            </div><!-- /.card-row -->
+            {% endfor %}
+        </div> <!--end Card Row-->
+
+
+
+
+
+
+
 
     {% endblock %}
 

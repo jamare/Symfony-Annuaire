@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Prestataires de services{% endblock %}
+
+{% block body %}
+    {% block content %}
+        {% block banner_title %}
+            <div class="document-title">
+                <h1>Liste des prestataires de services</h1>
+            </div>
+        {% endblock %}
+        {{ parent() }}
+
+        </h2><!-- /.page-title -->
+        <div class="cards-row">
+            {% for provider in provider %}
+                <div class="card-row">
+                    <div class="card-row-inner">
+                        <div class="card-row-image" data-background-image="assets/img/tmp/product-1.jpg">
+
+                        </div><!-- /.card-row-image -->
+
+                        <div class="card-row-body">
+                            <h2 class="card-row-title"> <a href="{{ path('show_provider',{'id':provider.id}) }}">{{ provider.name }}</a></h2>
+
+                                            {% for service in provider.services %}
+                                                {{ service.name }} -
+                                            {% endfor %}
+
+                        </div><!-- /.card-row-body -->
+
+                        <div class="card-row-properties">
+                            <dl>
+                                <dd>Tel.:</dd><dt>{{ provider.phone }}</dt>
+                                <dd>Email</dd><dt>{{ provider.emailContact }}</dt>
+                                <dd>Web</dd><dt>{{ provider.web }}</dt>
+                                <dd>Rating</dd>
+                                <dt>
+                                    <div class="card-row-rating">
+                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                    </div><!-- /.card-row-rating -->
+                                </dt>
+                            </dl>
+                        </div><!-- /.card-row-properties -->
+                    </div><!-- /.card-row-inner -->
+                </div><!-- /.card-row -->
+            {% endfor %}
+        </div> <!--end Card Row-->
+
+    {% endblock %}
+
+{% endblock %}

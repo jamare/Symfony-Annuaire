@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    {% block content %}
+
+        <div class="document-title">
+            <h1>{{ provider.name }}</h1>
+        </div>
+
+        {{ parent() }}
+
+        <h1>Détail du prestataire</h1>
+        <hr />
+
+        <h4>TVA : {{ provider.tva }}</h4>
+        <h4>Tel.: {{ provider.phone }}</h4>
+        <h4>Email :<a href="mailto:{{ provider.emailContact }}">{{ provider.emailContact }}</a></h4>
+        <h4>Web: {{ provider.web }}</h4>
+
+    {% endblock %}
+{% endblock %}

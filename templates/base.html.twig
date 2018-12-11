@@ -125,93 +125,73 @@
         </div><!-- /.header-wrapper -->
     </header><!-- /.header -->
 
-
-
-
     <div class="main">
         <div class="main-inner">
-            <div class="content">
-                <!--<div class="mt-80">
-                    <div class="hero-image">
-                        <div class="hero-image-inner" style="background-image: url('assets/img/tmp/slider-large-3.jpg');">
-                            <div class="hero-image-content">
-                                <div class="container">
-                                    <h1>Mon service bien-être</h1>
+            <div class="container">
 
-                                    <p>Create your own directory website by using Superlist template <br>
-                                        incorporating all features of modern directory website.</p>
+    <div class="content">
+        {% block content %}
 
 
-                                </div><!-- /.container -->
-                            <!--</div><!-- /.hero-image-content -->
 
-                            <!--<div class="hero-image-form-wrapper">
-                                <div class="container">
-                                    <div class="row">
+            <form class="filter" method="post" action="?">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <input type="text" placeholder="Keyword" class="form-control">
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col-* -->
 
-
-                                    </div><!-- /.row -->
-                                <!--</div><!-- /.container -->
-                <!--</div><!-- /.hero-image-form-wrapper -->
-                <!--</div><!-- /.hero-image-inner -->
-                <!--</div><!-- /.hero-image -->
-
-                <!-- </div>-->
-
-                <div class="container">
-                    <div >
-                        <h2>Recherche :</h2>
-                        <form class="filter">
-                            <input type="text" id="search" name="search" placeholder="Mot clé"><br />
-                            <label for="category">Categorie</label>
-                            <select name="category">
-                                <option value="cat1">Cat1</option>
-                                <option value="cat2">Cat2</option>
-                                <option value="cat3">Cat3</option>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <select class="form-control" title="Select Location">
+                                <option>Bronx</option>
+                                <option>Brooklyn</option>
+                                <option>Manhattan</option>
+                                <option>Staten Island</option>
+                                <option>Queens</option>
                             </select>
-                            <!--<label for="provider">Prestataire</label>
-                            <select name="provider">
-                                <option value="prest1">Prest1</option>
-                                <option value="prest2">Prest2</option>
-                                <option value="prest3">Prest3</option>
-                            </select>-->
-                        </form>
-                    </div>
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col-* -->
+
+                    <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <select class="form-control" title="Select Category">
+                                <option value="">Automotive</option>
+                                <option value="">Jobs</option>
+                                <option value="">Nightlife</option>
+                                <option value="">Services</option>
+                            </select>
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col-* -->
+                </div><!-- /.row -->
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="filter-actions">
+                            <a href="#"><i class="fa fa-close"></i> Reset Filter</a>
+                            <a href="#"><i class="fa fa-save"></i> Save Search</a>
+                        </div><!-- /.filter-actions -->
+                    </div><!-- /.col-* -->
+
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">Redefine Search Result</button>
+                    </div><!-- /.col-* -->
+                </div><!-- /.row -->
+            </form>
 
 
-                    {% block content %}
 
-                    {% endblock %}
-                    <!--<div class="page-header">
-                        <h1>Nos catégories de services</h1>
-                        <p>Nos services variés bla bla bla<br>et blabla bla bla bla bla bla blablabla bla bla </p>
-                    </div><!-- /.page-header -->
-
-                    <!--<div class="cards-simple-wrapper">
-                        <div class="row">
-
-                            <div class="col-sm-6 col-md-3">
-                                <div class="card-simple" data-background-image="assets/img/tmp/product-2.jpg">
-                                    <div class="card-simple-background">
-                                        <div class="card-simple-content">
-                                            <h2><a href="listing-detail.html">Tasty Brazil Coffee</a></h2>
-
-                                        </div><!-- /.card-simple-content -->
+        {% endblock %}
 
 
 
-                                    <!--</div><!-- /.card-simple-background -->
-                                <!--</div><!-- /.card-simple -->
-                            <!--</div><!-- /.col-* -->
-                        <!--</div><!-- /.row -->
-                    <!--</div><!-- /.cards-simple-wrapper -->
-
-
-                </div><!-- /.container -->
-
-            </div><!-- /.content -->
-        </div><!-- /.main-inner -->
-    </div><!-- /.main -->
+    </div><!-- /.content -->
+</div><!-- /.container -->
+</div><!-- /.main-inner -->
+</div><!-- /.main -->
 
     <footer class="footer">
         <div class="footer-top">

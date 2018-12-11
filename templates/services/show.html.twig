@@ -2,12 +2,19 @@
 
 {% block body %}
     {% block content %}
+
+        <div class="document-title">
+            <h1>{{ service.name }}</h1>
+        </div>
+
+        {{ parent() }}
+
         <h2>Détails du service :</h2>
-        <h3>{{ service.name }}</h3>
+
         <hr />
         {% dump(service) %}
         {{ service.description }}
-        <h2>Prestataire :</h2>
+        <h2>Prestataire(s) :</h2>
         <ul>
             {% for provider in service.providers%}
                 <a href="{{ path('show_provider',{'id':provider.id}) }}">{{ provider.name }}</a>
