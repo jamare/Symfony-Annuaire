@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+                    <h1>Formulaire d'inscription</h1>
+
+                        {{ form_start(form) }}
+                        <div class="form-group">
+
+                            {{ form_widget(form.name,{'attr':{'class':'form-control'}} ) }}
+                            {{ form_widget(form.firstName,{'attr':{'class':'form-control'}}) }}
+                            {{ form_widget(form.adress,{'attr':{'class':'form-control'}}) }}
+                            {{ form_widget(form.adressNumber,{'attr':{'class':'form-control'}}) }}
+                            {{ form_widget(form.code_postal,{'attr':{'class':'form-control'}}) }}
+                            {{ form_widget(form.localite,{'attr':{'class':'form-control'}}) }}
+                            {{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
+                            {{ form_widget(form.password,{'attr':{'class':'form-control'}}) }}
+                        </div>
+
+                    <hr/>
+
+                        {{ form_end(form) }}
+
+    {% endblock %}
+{% endblock %}

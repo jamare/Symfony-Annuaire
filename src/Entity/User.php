@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({"provider" = "Provider", "customer" = "Customer"})
  */
 
-abstract class User
+abstract class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -196,5 +196,24 @@ abstract class User
         $this->localite = $localite;
 
         return $this;
+    }
+
+    public function getRoles(){
+        return['ROLE_USER'];
+    }
+
+    /*public function getPassword(){
+        return $this->password;
+    }*/
+
+    public function getSalt(){}
+
+    public function getUsername(){
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

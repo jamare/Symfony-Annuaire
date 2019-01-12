@@ -2,11 +2,12 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
+use App\Entity\Provider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Provider;
-use Faker\Factory;
+
 
 class ProviderFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -31,7 +32,7 @@ class ProviderFixtures extends Fixture implements DependentFixtureInterface
             $provider->setLocalite($this->getReference('localite_'.$randCP.'_'.rand(1,self::AMOUNT_LOCALITE)));
             $provider->setEmail($faker->email);
             $provider->setPhone($faker->phoneNumber);
-            $provider->setPassword($faker->password);
+            $provider->setPassword('password');
             $provider->setRegistration($faker->dateTimeBetween('-365 days', '-1 days'));
             $provider->setConfirmed(1);
             $provider->setAttempt(0);

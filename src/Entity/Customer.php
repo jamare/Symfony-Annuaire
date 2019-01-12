@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Table(name="customer")
  * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
@@ -71,4 +72,6 @@ class Customer extends User
     {
         return $this->getFirstName()." ".$this->getName();
     }*/
+
+
 }
