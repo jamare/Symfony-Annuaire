@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2048c12-26dd-46cf-915c-bb86a9cbf9b1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/CodePostalController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Controller/LocaliteController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/codepostal/list.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/localite/list.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/AccountController.php" afterPath="$PROJECT_DIR$/src/Controller/AccountController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Entity/CodePostal.php" afterPath="$PROJECT_DIR$/src/Entity/CodePostal.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Entity/Localite.php" afterPath="$PROJECT_DIR$/src/Entity/Localite.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form/RegistrationType.php" afterPath="$PROJECT_DIR$/src/Form/RegistrationType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/account/registration.html.twig" afterPath="$PROJECT_DIR$/templates/account/registration.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -476,15 +467,15 @@
       <workItem from="1547377366580" duration="7100000" />
       <workItem from="1547465045613" duration="597000" />
       <workItem from="1547485588164" duration="4420000" />
-      <workItem from="1547653622616" duration="277000" />
+      <workItem from="1547653622616" duration="413000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187022000" />
+    <option name="totallyTimeSpent" value="187158000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12686567" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
