@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Customer;
-use App\Form\ApplicationType;
+use App\Entity\Localite;
+use App\Entity\CodePostal;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -14,21 +17,74 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
-class RegistrationType extends ApplicationType
+class RegistrationType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, $this->getConfiguration("Nom", "Votre nom ..."))
-            ->add('firstName', TextType::class, $this->getConfiguration("Prénom", "Votre prénom ..."))
-            ->add('adress', TextType::class, $this->getConfiguration("Adresse", "Votre adresse ..."))
-            ->add('adressNumber', NumberType::class, $this->getConfiguration("Numéro", "Numéro"))
-            ->add('codePostal', NumberType::class, $this->getConfiguration("CP", "Votre code postal ..."))
-            ->add('localite', TextType::class, $this->getConfiguration("localité", "Votre localité"))
-            ->add('email', EmailType::class, $this->getConfiguration("Email", "Votre adresse email"))
-            ->add('password', PasswordType::class, $this->getConfiguration("Mot de pass", "Choisissez un mot de pass"))
-            ->add('submit',SubmitType::class);
+            ->add('name', TextType::class, array(
+               'label' => ' ',
+               'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Nom',
+                ),
+            ))
+            ->add('firstName', TextType::class, array(
+                'label' => ' ',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Prénom',
+                ),
+            ))
+            ->add('adress', TextType::class, array(
+                'label' => ' ',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Adresse',
+                ),
+            ))
+            ->add('adressNumber', NumberType::class, array(
+                'label' => ' ',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Numéro',
+                ),
+            ))
+            ->add('codePostal', EntityType::class, array(
+                'label' =>' ',
+                'class' => CodePostal::class,
+                'placeholder' => 'Code Postal ',
+                'empty_data' => null,
+                'attr' => array('class' => 'form-control'),
+            ))
+            ->add('localite', EntityType::class, array(
+                'label' =>' ',
+                'class' => Localite::class,
+                'placeholder' => 'Localite ',
+                'empty_data' => null,
+                'attr' => array('class' => 'form-control'),
+                ))
+            ->add('email', EmailType::class, array(
+                'label' => ' ',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Email',
+                ),
+            ))
+            ->add('password', PasswordType::class, array(
+                'label' => ' ',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Mot de passe',
+                ),
+            ))
+            ->add('newsletter', CheckboxType::class, array(
+                'attr' => array('class' => 'form-control'),
+                'label' => 'Je m\'abonne à la newsletter',
+                'required' => false
+            ))
+            ->add('submit',SubmitType::class)
         ;
     }
 

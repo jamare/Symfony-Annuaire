@@ -69,6 +69,8 @@ class AccountController extends AbstractController
 
             $manager->persist($customer);
             $manager->flush();
+
+
         }
 
         return $this->render('account/registration.html.twig', [

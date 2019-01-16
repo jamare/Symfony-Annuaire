@@ -80,4 +80,8 @@ class CodePostal
 
         return $this;
     }
+
+    public function __toString() {
+        return $this->cp;
+    }
 }
