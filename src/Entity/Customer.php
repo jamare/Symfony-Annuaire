@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
@@ -14,11 +16,14 @@ class Customer extends User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Vous devez renseigner votre nom de famille")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Vous devez renseigner votre prénom")
+     *
      */
     private $firstName;
 

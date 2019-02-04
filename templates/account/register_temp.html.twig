@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un compte{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <h1>Inscription : Connectez-vous via l'interface souhaitée</h1>
+        <hr />
+        <div class="col-md-5 " style="float:left; background:lightgrey; border-radius:15px;">
+            <h1>Je suis un particulier</h1>
+            <h3>Je cherche un service</h3>
+            {#
+                {% if hasError  %}
+                    <div class="alert alert-danger">Erreur avec votre email</div>
+                {% endif %}
+            #}
+            <form action="{# path('account_temp')#} " method="post">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="Adresse email ...">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">S'inscrire</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="col-md-5" style="float:right; background:lightgreen; border-radius:15px;">
+            <h1>Je suis un professionnel</h1>
+            <h3>Je propose un service</h3>
+            {#
+                {% if hasError  %}
+                    <div class="alert alert-danger">Erreur avec votre email</div>
+                {% endif %}
+            #}
+
+            <form action="{# path('account_temp')#} " method="post">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="Adresse email ...">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+
+    {% endblock %}
+{% endblock %}

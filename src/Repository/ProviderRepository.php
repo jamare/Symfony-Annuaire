@@ -56,4 +56,28 @@ class ProviderRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function searchServiceByNameLocalite($search_name, $search_service, $search_localite){
+        $qb = $this->createQueryBuilder('s');
+
+
+        if($search_name !== ''){
+            $qb->andWhere('s.name LIKE :value');
+            $qb->setParameter('value', '%'.$search_name.'%');
+        }
+        if($search_service !== ''){
+            $qb->leftJoin('s.services', 'service');
+            $qb->addSelect('service');
+            $qb->andWhere('service.name LIKE :search_service');
+            $qb->setParameter('search_service', $search_service);
+        }
+        if($search_localite !== ''){
+            $qb->leftJoin('s.localite', 'localite');
+            $qb->addSelect('localite');
+            $qb->andWhere('localite.localite LIKE :search_localite');
+            $qb->setParameter('search_localite', $search_localite);
+        }
+        $result= $qb->getQuery()->getResult();
+        return $result;
+    }
 }

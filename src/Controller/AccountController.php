@@ -66,15 +66,31 @@ class AccountController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $password = $encoder->encodePassword($customer, $customer->getPassword());
             $customer->setPassword($password);
-
+            /* Pour confirmation manuel, à supprimer*/
+            $customer->setConfirmed(1);
+            $customer->setRegistration(new \DateTime());
+            $customer->setAttempt(0);
+            /********************************/
             $manager->persist($customer);
             $manager->flush();
 
-
+            $this->addFlash(
+                'success',
+                "Votre compte a bien été créé ! Vous pouvez maintenant vous connecter !"
+            );
+            return $this->redirectToRoute('account_login');
         }
 
         return $this->render('account/registration.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/account_temp", name="account_temp")
+     */
+    public function registerTemp(){
+        return $this->render('account/register_temp.html.twig');
+
     }
 }

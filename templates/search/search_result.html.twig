@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultat de la recherche{% endblock %}
+
+{% block body %}
+
+    {% block content %}
+        <h1>Résultat de la recherche :</h1>
+
+        {% if providers|length == 0 %}
+            <p>Aucun résultat ...</p>
+        {% endif %}
+        {% for provider in providers %}
+
+            {{ path ('provider_detail',
+                {
+                    'name':provider.name, 'telephone':provider.phone, 'emailPro':provider.email
+                })
+            }}
+
+        {% endfor %}
+
+    {% endblock %}
+
+
+{% endblock %}

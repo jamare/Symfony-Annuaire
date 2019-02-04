@@ -44,6 +44,14 @@ class ServicesController extends AbstractController
         return $sr;
     }
 
+    public function list_services_search(){
+        $repository = $this->getDoctrine()->getRepository(Services::class);
+        $services = $repository->findAll();
 
+        return $this->render('services/list_services_search.html.twig',[
+            'services' => $services,
+        ]);
+
+    }
 
 }

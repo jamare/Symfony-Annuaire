@@ -79,6 +79,13 @@ class RegistrationType extends AbstractType
                     'placeholder' => 'Mot de passe',
                 ),
             ))
+            ->add('passwordConfirm', PasswordType::class, array(
+                'label' => ' ',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Veuillez confirmer votre mot de pass ...'
+                ),
+            ))
             ->add('newsletter', CheckboxType::class, array(
                 'attr' => array('class' => 'form-control'),
                 'label' => 'Je m\'abonne à la newsletter',

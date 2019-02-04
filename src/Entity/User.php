@@ -4,12 +4,19 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="user_type", type="string")
  * @ORM\DiscriminatorMap({"provider" = "Provider", "customer" = "Customer"})
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Un autre utilisateur s'est déjà inscrit avec cette adresse email, veuillez changer"
+ * )
  */
 
 abstract class User implements UserInterface
@@ -38,6 +45,7 @@ abstract class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez renseigner un email valide !")
      */
     protected $email;
 
@@ -55,6 +63,11 @@ abstract class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     protected $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas correctement confirmé votre mot de pass!")
+     */
+    public $passwordConfirm; /*pas d'annotation car pas en base de données*/
 
     /**
      * @ORM\Column(type="integer")
