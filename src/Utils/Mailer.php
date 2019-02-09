@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: eric
- * Date: 24-01-19
- * Time: 18:48
- */
-
 
 namespace App\Utils;
 
@@ -13,35 +6,37 @@ use App\Entity\TempUser;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface as Generator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-
 class Mailer {
-
     /**
      * @var \Swift_Mailer
      */
     private $mailer;
-
     /**
      * @var Generator
      */
     private $urlGenerator;
 
-    public function __construct(\Swift_Mailer $mailer, Generator $urlGenerator) {
+
+    /*public function __construct(\Swift_Mailer $mailer, Generator $urlGenerator) {
         $this->mailer = $mailer;
         $this->urlGenerator = $urlGenerator;
-    }
+    }*/
 
-    public function sendConfirmationMail(TempUser $user){
-        $message = new \Swift_Message('Confirmation');
-        $message->setFrom('info@bienetre.com')
+    public function sendConfirmationMail(TempUser $user)
+    {
+        $transport = (new \Swift_SmtpTransport('smtp.mailtrap.io', 25))
+            ->setUsername('64346a2d2d4cdc')
+            ->setPassword('507143d2e44515');
+        $mailer = new \Swift_Mailer($transport);
+        $link = "http://localhost:8000/user/new/" . $user->getToken();
+        $message = new \Swift_Message('Bienvenue à notre annuaire');
+        $message->setFrom(['bienetre@symfony.com' => 'annuaire.fr'])
             ->setTo($user->getEmail())
             ->setBody(
-                sprintf('Veuillez confirmer votre inscription : <a href="%s">Token</a>',
-                    $this->urlGenerator->generate(
-                        'confirm_inscription', ['token'=>$user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL
-                    )
-                ), 'text/html'
+                '<p>Pour confirmer votre inscription, veuillez cliquer sur ce lien : </p><a href=".$link.">' . $link . '</a>
+                       <p>Veuillez par la suite remplir votre profil</p> ', 'text/html'
             );
-        $this->mailer->send($message);
+
+        $result = $mailer->send($message);
     }
 }

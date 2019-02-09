@@ -4,9 +4,13 @@ namespace App\Form;
 
 use App\Entity\TempUser;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 
 class RegistrationTempType extends AbstractType
 {
@@ -20,6 +24,21 @@ class RegistrationTempType extends AbstractType
                     'placeholder' => 'Email',
                 ),
             ))
+            ->add('password', PasswordType::class, array(
+                'label' => ' ',
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Password',
+                ),
+            ))
+            ->add('type', ChoiceType::class, array(
+                'choices'  => array(
+                    'Utilisateur privé' => 'customer',
+                    'Prestataire de service' => 'provider',
+                ),
+                'label' => 'Type d\'utilisateur',
+            ))
+            ->add('submit',SubmitType::class)
         ;
     }
 
