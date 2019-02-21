@@ -28,40 +28,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProfileController extends AbstractController
 {
-    /**
-     * Permet d'afficher et de traiter le formulaire de modification de profil : Provider
-     *
-     * @Route("/account/profilepro", name="account_profilepro")
-     *
-     * @return Response
-     */
-    public function profilePro(Request $request, ObjectManager $manager)
-    {
-        $user = $this->getUser();
-        $form = $this->createForm(AccountProType::class, $user);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($user);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "Les données du profil ont été enregistrées avec succès"
-            );
-        }
-
-
-        return $this->render('account/profilepro.html.twig',[
-            'form' => $form->createView()
-        ]);
-
-    }
-
 
     /**
-     * Permet d'afficher et de traiter le formulaire de modification de profil : Customer
+     * Permet d'afficher et de traiter les formulaires de modification de profil : Customer & Provider
      *
      * @Route("/account/profile", name="account_profile")
      *
@@ -70,23 +39,47 @@ class ProfileController extends AbstractController
     public function profile(Request $request, ObjectManager $manager)
     {
         $user = $this->getUser();
-        $form = $this->createForm(AccountType::class, $user);
+        if($user instanceof Customer){
+            $form = $this->createForm(AccountType::class, $user);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $manager->persist($user);
-            $manager->flush();
+            if($form->isSubmitted() && $form->isValid()){
+                $manager->persist($user);
+                $manager->flush();
 
-            $this->addFlash(
-                'success',
+                $this->addFlash(
+                    'success',
                     "Les données du profil ont été enregistrées avec succès"
-            );
+                );
+            }
+
+            return $this->render('account/profile.html.twig',[
+                'form' => $form->createView()
+            ]);
+        } elseif ($user instanceof Provider){
+
+            $form = $this->createForm(AccountProType::class, $user);
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "Les données du profil ont été enregistrées avec succès"
+                );
+            }
+
+
+            return $this->render('account/profilepro.html.twig',[
+                'form' => $form->createView()
+            ]);
+
         }
 
-        return $this->render('account/profile.html.twig',[
-            'form' => $form->createView()
-        ]);
 
     }
 
