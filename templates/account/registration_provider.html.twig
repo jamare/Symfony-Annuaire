@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Prestataire{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+        <h1>Formulaire d'inscription pour les prestataires de services</h1>
+        {{ form_start(form) }}
+
+
+        {{ form_widget(form) }}
+
+
+        {{ form_end(form) }}
+
+    {% endblock %}
+{% endblock %}

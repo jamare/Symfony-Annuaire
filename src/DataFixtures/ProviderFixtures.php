@@ -7,10 +7,19 @@ use App\Entity\Provider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class ProviderFixtures extends Fixture implements DependentFixtureInterface
 {
+    private $encoder;
+
+    //injection des dépendances par le constructeur, Symfony ne nous le passera pas par la fonction load
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     const AMOUNT_CP = 6;
     const AMOUNT_LOCALITE = 3;
 
@@ -20,6 +29,9 @@ class ProviderFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create('fr_FR');
         for ($k = 1; $k < 10; $k++) {
             $provider = new Provider();
+
+            $password = $this->encoder->encodePassword($provider, 'password');
+
             $provider->setName($faker->name);
             $provider->setEmailContact($faker->email);
             $provider->setPhone($faker->phoneNumber);
@@ -32,7 +44,7 @@ class ProviderFixtures extends Fixture implements DependentFixtureInterface
             $provider->setLocalite($this->getReference('localite_'.$randCP.'_'.rand(1,self::AMOUNT_LOCALITE)));
             $provider->setEmail($faker->email);
             $provider->setPhone($faker->phoneNumber);
-            $provider->setPassword('password');
+            $provider->setPassword($password);
             $provider->setRegistration($faker->dateTimeBetween('-365 days', '-1 days'));
             $provider->setConfirmed(1);
             $provider->setAttempt(0);

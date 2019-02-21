@@ -36,6 +36,24 @@
                     </div><!-- /.header-logo -->
 
                     <div class="header-content">
+                        <div class="header-top">
+                            <ul class="header-nav-secondary nav nav-pills">
+                                {% if app.user %} <!-- Si un utilisateur est connecté -->
+
+                                    <li class="nav-item">
+                                        <a href="{{ path('account_logout') }}" >Déconnexion</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a href="{{ path('register_temp') }}" >Inscription</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('account_login') }}" >Se connecter</a>
+                                    </li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
                         <div class="header-bottom">
 
 
@@ -53,21 +71,6 @@
                                     <a href="{{ path('providers') }}">Prestataires</a>
                                 </li>
                             </ul>
-                            <ul class="header-nav-secondary nav nav-pills">
-                                {% if app.user %} <!-- Si un utilisateur est connecté -->
-                                    <li class="nav-item">
-                                        <a href="{{ path('account_logout') }}" >Déconnexion</a>
-                                    </li>
-                                {% else %}
-                                    <li class="nav-item">
-                                        <a href="{{ path('account_temp') }}" >Inscription</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ path('account_login') }}" >Se connecter</a>
-                                    </li>
-                                {% endif %}
-
-                            </ul>
 
 
 
@@ -78,9 +81,22 @@
         </div><!-- /.header-wrapper -->
     </header><!-- /.header -->
 
+
+
     <div class="main">
         <div class="main-inner">
             <div class="container">
+                {% for label, messages in app.flashes %}
+
+                    <div class="container">
+                        <div class="alert alert-{{ label }}">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% endfor %}
 
                 <div class="content">
                     {% block content %}

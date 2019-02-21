@@ -4,11 +4,12 @@
 
 {% block body %}
     {% block content %}
-        <h1>Inscription : Connectez-vous via l'interface souhaitée</h1>
+        <h1>Inscription : Veuillez saisir votre adresse email </h1>
         <hr />
-        <div class="col-md-5 " style="float:left; background:lightgrey; border-radius:15px;">
-            <h1>Je suis un particulier</h1>
-            <h3>Je cherche un service</h3>
+        <div class="container">
+            <h1>Vous êtes un particulier, vous cherchez un service</h1>
+            <h1>Ou vous êtes un professionnel, vous proposez vos services</h1>
+            <h3>Complétez ce formulaire pour nous rejoindre dès maintenant.</h3>
 
             {{ form_start(registrationTemp) }}
 
@@ -22,21 +23,6 @@
 
         </div>
 
-        <!--<div class="col-md-5" style="float:right; background:lightgreen; border-radius:15px;">
-            <h1>Je suis un professionnel</h1>
-            <h3>Je propose un service</h3>
-
-
-            <form action="{# path('account_temp')#} " method="post">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" class="form-control" placeholder="Adresse email ...">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">S'inscrire</button>
-                </div>
-            </form>
-        </div>-->
 
     {% endblock %}
 {% endblock %}

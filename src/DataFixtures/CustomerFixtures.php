@@ -14,6 +14,7 @@ class CustomerFixtures extends Fixture implements DependentFixtureInterface
 {
     private $encoder;
 
+    //injection des dépendances par le constructeur, Symfony ne nous le passera pas par la fonction load
     public function __construct(UserPasswordEncoderInterface $encoder){
         $this->encoder = $encoder;
     }

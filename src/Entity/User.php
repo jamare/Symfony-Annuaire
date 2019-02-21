@@ -30,11 +30,13 @@ abstract class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     protected $adressNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * * @Assert\NotBlank()
      */
     protected $adress;
 
@@ -45,7 +47,8 @@ abstract class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email(message="Veuillez renseigner un email valide !")
+     * @Assert\NotBlank()
+     * @Assert\Email(message="L'email '{{ value }}' n'est pas valide, veuillez vérifier")
      */
     protected $email;
 
@@ -65,7 +68,7 @@ abstract class User implements UserInterface
     protected $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas correctement confirmé votre mot de pass!")
+     * @Assert\EqualTo(propertyPath="password", message="Erreur lors de la confirmation de votre mot de pass!")
      */
     public $passwordConfirm; /*pas d'annotation car pas en base de données*/
 

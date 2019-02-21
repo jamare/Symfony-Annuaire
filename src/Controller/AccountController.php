@@ -4,12 +4,13 @@ namespace App\Controller;
 
 
 use App\Entity\Customer;
+use App\Entity\Provider;
 use App\Entity\TempUser;
+use App\Form\RegistrationProviderType;
 use App\Utils\Mailer;
 use App\Form\RegistrationTempType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectManagerDecorator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,129 +51,130 @@ class AccountController extends AbstractController
      * @return void
      */
     public function logout(){
-        // symfony gère le logout
+        // symfony gère le logout via le security yaml
     }
 
-    /**
-     * Permet d'afficher le formulaire d'inscription
-     *
-     * @Route("/register", name="account_register")
-     *
-     * @return Response
-     */
-    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
-        $customer = new Customer();
 
-        $form = $this->createForm(RegistrationType::class, $customer);
-        //formulaire gère la requete
-        $form->handleRequest($request);
-
-        // si le formulaire est soumis et validé, le manager va persister l'utilisateur, et envoyer la requête
-        if($form->isSubmitted() && $form->isValid()){
-            $password = $encoder->encodePassword($customer, $customer->getPassword());
-            $customer->setPassword($password);
-            /* Pour confirmation manuel, à supprimer*/
-            $customer->setConfirmed(1);
-            $customer->setRegistration(new \DateTime());
-            $customer->setAttempt(0);
-            /********************************/
-            $manager->persist($customer);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "Votre compte a bien été créé ! Vous pouvez maintenant vous connecter !"
-            );
-            return $this->redirectToRoute('account_login');
-        }
-
-        return $this->render('account/registration.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
 
     /**
-     * @Route("/account_temp", name="account_temp")
+     * @Route("/account_temp", name="register_temp")
      */
-    public function registerTemp(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
+    public function registerTemp(Request $request, \Swift_Mailer $mailer){
 
         $tempUser = new TempUser();
 
         $form = $this->createForm(RegistrationTempType::class, $tempUser);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
             // création du token openssl pour s'assurer que le token est unique
-            $token = bin2hex (openssl_random_pseudo_bytes(24));
-
-            $password = $encoder->encodePassword($tempUser, $tempUser->getPassword());
+            $token = bin2hex(openssl_random_pseudo_bytes(24));
 
             $tempUser->setToken($token);
-            $tempUser->getType();
-            $tempUser->setPassword($password);
+            $type = $tempUser->getType();
 
-            $email = new mailer();
-            $email->sendConfirmationMail($tempUser);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($tempUser);
+            $em->flush();
 
-            $manager->persist($tempUser);
-            $manager->flush();
+            $message = (new \Swift_Message('Email de confirmation!'))
+                ->setFrom('eric.jamar@outlook.be')
+                ->setTo($tempUser->getEmail())
+                ->setBody(
+                        "Merci de confirmer votre inscription, veuillez copier cette URL dans votre navigateur: 127.0.0.1:8000/account/$type/$token", 'text/html' );
+
+            $mailer->send($message);
 
             $this->addFlash(
                 'success',
-                "Veuillez surveiller votre boite email, un mail de confirmation vient d'y être envoyé ..."
+                "Votre demande de compte a été enregistrée, un email de confirmation vous a été envoyé  !"
             );
-            return $this->redirectToRoute('home');
         }
-
 
         return $this->render('account/register_temp.html.twig',[
             'registrationTemp' => $form->createView()
         ]);
-
     }
 
 
     /**
-     * @Route("/account_temp/{type}/{token}", name="account_confirm")
+     * @Route("/account/{type}/{token}", name="account_confirm")
      */
-    /*public function registerConfirm(Request $request, $token, $type){
+    public function registerConfirm(Request $request, $token, $type, UserPasswordEncoderInterface $encoder)
+    {
         $repository = $this->getDoctrine()->getRepository(TempUser::class);
-        $tempUser = $repository->findByOne(['token' => $token]);
+        $repository->findByToken(['token' => $token]);
 
-        if($tempUser){
-            if($type === 'customer'){
+
+            if ($type === 'customer') {
                 $customer = new Customer();
+
                 $form = $this->createForm(RegistrationType::class, $customer);
                 //formulaire gère la requete
                 $form->handleRequest($request);
 
                 if($form->isSubmitted() && $form->isValid()){
+
+                    $password = $encoder->encodePassword($customer, $customer->getPassword());
+                    $customer->setPassword($password);
+
                     $customer->setConfirmed(1);
                     $customer->setRegistration(new \DateTime());
                     $customer->setAttempt(0);
 
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($customer);
-                    $entityManager->flush();
+                    $em = $this->getDoctrine()->getManager();
+                    //$em->remove($tempUser);
+                    $em->persist($customer);
+                    $em->flush();
+
+                    $this->addFlash(
+                        'success',
+                        "Votre compte a bien été créé, vous pouvez maintenant vous connecter  !"
+                    );
                 }
+
+                return $this->render('account/registration.html.twig',[
+                    'form' => $form->createView()
+                ]);
             }
 
-            else if($type === 'provider'){
+            else if ($type === 'provider') {
+                $provider = new Provider();
 
+                $form = $this->createForm(RegistrationProviderType::class, $provider);
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+
+                    $password = $encoder->encodePassword($provider, $provider->getPassword());
+                    $provider->setPassword($password);
+
+                    $provider->setConfirmed(1);
+                    $provider->setRegistration(new \DateTime());
+                    $provider->setAttempt(0);
+
+                    $em = $this->getDoctrine()->getManager();
+                    //$em->remove($tempUser);
+                    $em->persist($provider);
+                    $em->flush();
+
+                    $this->addFlash(
+                        'success',
+                        "Votre compte PRO a bien été créé, vous pouvez maintenant vous connecter  !"
+                    );
+                }
+
+
+                return $this->render('account/registration_provider.html.twig',[
+                    'form' => $form->createView()
+                ]);
             }
 
-            else{
-                echo('Erreur : Ce compte est inexistant ou a déjà été créé. ');
-                return $this->redirectToRoute('index');
-            }
-
-            return $this->render('account/register_temp.html.twig', array(
-                'registrationTemp' => $form->createView()
-            ));
-        }
+    }
 
 
-    }*/
+
+
+
 }

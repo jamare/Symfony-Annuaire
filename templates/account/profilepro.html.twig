@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du profil Pro{% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="container">
+            <h1>Modification de votre profil Pro</h1>
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            {{ form_end(form) }}
+
+        </div>
+    {% endblock %}
+{% endblock %}
