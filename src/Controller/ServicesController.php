@@ -8,7 +8,9 @@ use App\Repository\ServicesRepository;
 use App\Repository\ProviderRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ServicesController extends AbstractController
 {
@@ -36,6 +38,18 @@ class ServicesController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet de créer une annonce
+     *
+     * @Route("services/new", name="ads_create")
+     * @IsGranted("ROLE_USER")
+     *
+     * @return Response
+     *
+     */
+    public function create(){
+        return $this->render('services/new.html.twig');
+    }
 
 
     public function getRepo(){

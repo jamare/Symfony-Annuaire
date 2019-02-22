@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -88,6 +90,16 @@ abstract class User implements UserInterface
      * @ORM\JoinColumn(nullable=false)
      */
     protected $localite;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
+     */
+    private $userRoles;
+
+    public function __construct()
+    {
+        $this->userRoles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -215,7 +227,22 @@ abstract class User implements UserInterface
     }
 
     public function getRoles(){
-        return['ROLE_USER'];
+
+        //$roles = $this->userRoles->toArray();
+
+        //dump($roles);
+
+        // toArray fonction qui appartient à l'ArrayCollection ( surcouche des tableaux )
+        $roles = $this->userRoles->map(function($role){
+           return $role->getTitle();
+        })->toArray();
+
+        $roles[] = 'ROLE_USER';
+
+        /*dump($roles);
+        die();*/
+
+        return $roles;
     }
 
     /*public function getPassword(){
@@ -231,5 +258,33 @@ abstract class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRoles->contains($userRole)) {
+            $this->userRoles->removeElement($userRole);
+            $userRole->removeUser($this);
+        }
+
+        return $this;
     }
 }

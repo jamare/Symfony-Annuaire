@@ -39,7 +39,9 @@
                         <div class="header-top">
                             <ul class="header-nav-secondary nav nav-pills">
                                 {% if app.user %} <!-- Si un utilisateur est connecté -->
-
+                                    <li class="nav-item">
+                                        <span class="btn btn-primary mr-2 mb-2">{{ app.user.name }}</span>
+                                    </li>
                                     <li class="nav-item">
                                         <a href="{{ path('account_profile') }}" >Mon compte</a>
                                     </li>
