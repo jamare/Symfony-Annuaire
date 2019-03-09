@@ -15,8 +15,10 @@
             {% for provider in provider %}
                 <div class="card-row">
                     <div class="card-row-inner">
-                        <div class="card-row-image" data-background-image="assets/img/tmp/product-1.jpg">
-
+                        <div class="card-row-image">
+                            {% if provider.filename %}
+                                <img src="/images/logos/{{ provider.filename }}" alt="card-img-top">
+                            {% endif %}
                         </div><!-- /.card-row-image -->
 
                         <div class="card-row-body">

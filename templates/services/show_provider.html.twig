@@ -5,6 +5,7 @@
     {% block content %}
 
         <div class="document-title">
+
             <h1>{{ provider.name }}</h1>
         </div>
 
@@ -12,7 +13,9 @@
 
         <h1>Détail du prestataire</h1>
         <hr />
-
+        {% if provider.filename %}
+            <img src="/images/logos/{{ provider.filename }}" alt="card-img-top">
+        {% endif %}
         <h4>TVA : {{ provider.tva }}</h4>
         <h4>Tel.: {{ provider.phone }}</h4>
         <h4>Email :<a href="mailto:{{ provider.emailContact }}">{{ provider.emailContact }}</a></h4>

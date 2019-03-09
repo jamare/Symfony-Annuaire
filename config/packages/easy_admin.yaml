@@ -1,0 +1,13 @@
+easy_admin:
+    entities:
+        Services:
+            class: App\Entity\Services
+            form:
+                fields:
+                    - {property: 'name'}
+                    - {property: 'description'}
+        Provider:
+            class: App\Entity\Provider
+        Customer:
+            class: App\Entity\Customer
+
