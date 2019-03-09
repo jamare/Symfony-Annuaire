@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImagesRepository")
+ * @Vich\Uploadable
  */
 class Images
 {
@@ -17,41 +20,74 @@ class Images
     private $id;
 
     /**
+     * @var string|null
      * @ORM\Column(type="string", length=255)
      */
-    private $url;
+    private $filename;
 
     /**
-     * @ORM\Column(type="integer", length=255)
+     * @var File|null
+     * @Vich\UploadableField(mapping="provider_logo", fileNameProperty="filename")
      */
-    private $imageOrder;
+    private $imageFile;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Provider", mappedBy="image")
+     */
+    private $provider;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUrl(): ?string
+    public function getProvider(): ?Provider
     {
-        return $this->url;
+        return $this->provider;
     }
 
-    public function setUrl(string $url): self
+    public function setProvider(?Provider $provider): self
     {
-        $this->url = $url;
+        $this->provider = $provider;
 
         return $this;
     }
 
-    public function getImageOrder(): ?int
+    /**
+     * @return null|string
+     */
+    public function getFilename()
     {
-        return $this->imageOrder;
+        return $this->filename;
     }
 
-    public function setImageOrder(int $imageOrder): self
+    /**
+     * @param null|string $filename
+     * @return Images
+     */
+    public function setFilename($filename)
     {
-        $this->imageOrder = $imageOrder;
-
+        $this->filename = $filename;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param mixed $imageFile
+     * @return Images
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+    }
+
+
 }

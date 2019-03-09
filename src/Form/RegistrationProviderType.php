@@ -6,6 +6,7 @@ use App\Entity\Provider;
 use App\Entity\Localite;
 use App\Entity\CodePostal;
 use App\Entity\Services;
+use App\Entity\Images;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -117,10 +118,6 @@ class RegistrationProviderType extends AbstractType
                     'placeholder' => 'Veuillez confirmer votre mot de pass ...'
                 ),
             ))
-            ->add('imageFile', FileType::class,[
-                'required' => false
-            ])
-
             ->add('submit',SubmitType::class)
 
         ;

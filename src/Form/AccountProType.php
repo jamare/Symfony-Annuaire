@@ -6,6 +6,7 @@ use App\Entity\CodePostal;
 use App\Entity\Localite;
 use App\Entity\Provider;
 use App\Entity\Services;
+use App\Entity\Images;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -101,10 +102,12 @@ class AccountProType extends AbstractType
                 'multiple' => true,
                 'attr' => array('class' => 'form-control'),
             ))
-
-            ->add('imageFile', FileType::class,[
-                'required' => false
-            ])
+            ->add('imageFile', EntityType::class, array(
+                'label' => ' ',
+                'class' => Images::class,
+                'required' => false,
+                'attr' => array('class' => 'form-control'),
+            ))
 
             ->add('submit',SubmitType::class)
         ;

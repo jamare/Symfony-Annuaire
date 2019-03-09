@@ -51,7 +51,6 @@ class ProviderFixtures extends Fixture implements DependentFixtureInterface
             $provider->setBanished(false);
             $provider->addService($this->getReference("service_".rand(1,10)));
             $provider->addService($this->getReference("service_".rand(1,10)));
-            $provider->setUpdatedAt($faker->dateTimeBetween('-365 days', '-1 days'));
             $provider->setFilename('5c7c2565eecda296921473.jpg');
 
             $manager->persist($provider);
