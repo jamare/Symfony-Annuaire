@@ -7,7 +7,6 @@ use App\Entity\Customer;
 use App\Entity\Provider;
 use App\Entity\TempUser;
 use App\Form\RegistrationProviderType;
-use App\Utils\Mailer;
 use App\Form\RegistrationTempType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;

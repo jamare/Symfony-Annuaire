@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+
+use App\Entity\Logos;
 use Faker\Factory;
 use App\Entity\Provider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -28,6 +30,11 @@ class ProviderFixtures extends Fixture implements DependentFixtureInterface
 
         $faker = Factory::create('fr_FR');
         for ($k = 1; $k < 10; $k++) {
+
+            $logo = new Logos();
+            $logo->setFilename('5c7c2565eecda296921473.jpg');
+            $manager->persist($logo);
+
             $provider = new Provider();
 
             $password = $this->encoder->encodePassword($provider, 'password');
@@ -51,7 +58,7 @@ class ProviderFixtures extends Fixture implements DependentFixtureInterface
             $provider->setBanished(false);
             $provider->addService($this->getReference("service_".rand(1,10)));
             $provider->addService($this->getReference("service_".rand(1,10)));
-            $provider->setFilename('5c7c2565eecda296921473.jpg');
+            $provider->addLogo($logo);
 
             $manager->persist($provider);
         }

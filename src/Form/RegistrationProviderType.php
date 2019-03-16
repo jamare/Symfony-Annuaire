@@ -7,8 +7,11 @@ use App\Entity\Localite;
 use App\Entity\CodePostal;
 use App\Entity\Services;
 use App\Entity\Images;
+use Doctrine\ORM\Mapping\Entity;
+use Liip\ImagineBundle\Form\Type\ImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -20,6 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class RegistrationProviderType extends AbstractType
 {
@@ -118,6 +122,7 @@ class RegistrationProviderType extends AbstractType
                     'placeholder' => 'Veuillez confirmer votre mot de pass ...'
                 ),
             ))
+
             ->add('submit',SubmitType::class)
 
         ;

@@ -65,15 +65,18 @@ class Provider extends User
     private $stages;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Images", inversedBy="provider")
+     * @ORM\OneToMany(targetEntity="App\Entity\Logos", mappedBy="Provider")
      */
-    private $image;
+    private $logos;
+
+
 
     public function __construct()
     {
         $this->services = new ArrayCollection();
         $this->stages = new ArrayCollection();
-        $this->image = new ArrayCollection();
+        $this->logos = new ArrayCollection();
+
 
     }
 
@@ -204,30 +207,31 @@ class Provider extends User
     }
 
     /**
-     * @return Collection|Images[]
+     * @return Collection|Logos[]
      */
-    public function getImage(): Collection
+    public function getLogos(): Collection
     {
-        return $this->image;
+        return $this->logos;
     }
 
-    public function addImage(Images $image): self
+
+    public function addLogo(Logos $logo): self
     {
-        if (!$this->image->contains($image)) {
-            $this->image[] = $image;
-            $image->setProvider($this);
+        if (!$this->logos->contains($logo)) {
+            $this->logos[] = $logo;
+            $logo->setProvider($this);
         }
 
         return $this;
     }
 
-    public function removeImage(Images $image): self
+    public function removeLogo(Logos $logo): self
     {
-        if ($this->image->contains($image)) {
-            $this->image->removeElement($image);
+        if ($this->logos->contains($logo)) {
+            $this->logos->removeElement($logo);
             // set the owning side to null (unless already changed)
-            if ($image->getProvider() === $this) {
-                $image->setProvider(null);
+            if ($logo->getProvider() === $this) {
+                $logo->setProvider(null);
             }
         }
 

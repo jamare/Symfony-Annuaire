@@ -7,10 +7,10 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ImagesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LogosRepository")
  * @Vich\Uploadable
  */
-class Images
+class Logos
 {
     /**
      * @ORM\Id()
@@ -32,47 +32,41 @@ class Images
     private $imageFile;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Provider", mappedBy="image")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Provider", inversedBy="logos")
      */
-    private $provider;
+    private $Provider;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getProvider(): ?Provider
-    {
-        return $this->provider;
-    }
-
-    public function setProvider(?Provider $provider): self
-    {
-        $this->provider = $provider;
-
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getFilename()
+    public function getFilename(): ?string
     {
         return $this->filename;
     }
 
-    /**
-     * @param null|string $filename
-     * @return Images
-     */
-    public function setFilename($filename)
+    public function setFilename(string $filename): self
     {
         $this->filename = $filename;
+
+        return $this;
+    }
+
+    public function getProvider(): ?Provider
+    {
+        return $this->Provider;
+    }
+
+    public function setProvider(?Provider $Provider): self
+    {
+        $this->Provider = $Provider;
+
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return null|File
      */
     public function getImageFile()
     {
@@ -80,14 +74,13 @@ class Images
     }
 
     /**
-     * @param mixed $imageFile
-     * @return Images
+     * @param null|File $imageFile
+     * @return Logos
      */
     public function setImageFile($imageFile)
     {
         $this->imageFile = $imageFile;
         return $this;
     }
-
 
 }

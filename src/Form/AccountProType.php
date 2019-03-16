@@ -6,9 +6,10 @@ use App\Entity\CodePostal;
 use App\Entity\Localite;
 use App\Entity\Provider;
 use App\Entity\Services;
-use App\Entity\Images;
+use App\Entity\Logos;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -18,6 +19,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 
 class AccountProType extends AbstractType
 {
@@ -102,13 +106,9 @@ class AccountProType extends AbstractType
                 'multiple' => true,
                 'attr' => array('class' => 'form-control'),
             ))
-            ->add('imageFile', EntityType::class, array(
-                'label' => ' ',
-                'class' => Images::class,
-                'required' => false,
-                'attr' => array('class' => 'form-control'),
-            ))
-
+            ->add('imageFile', VichImageType::class,[
+                'required' => false
+            ])
             ->add('submit',SubmitType::class)
         ;
     }
