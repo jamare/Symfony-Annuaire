@@ -4,10 +4,12 @@
     {% block content %}
 
 
-        <h2>Liste des stages proposés :</h2>
+        <h2>Ajout de stage :</h2>
 
         <hr />
-
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
 
     {% endblock %}
 

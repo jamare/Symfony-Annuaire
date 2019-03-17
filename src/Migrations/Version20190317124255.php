@@ -8,15 +8,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190313195025 extends AbstractMigration
+final class Version20190317124255 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE logos (id INT AUTO_INCREMENT NOT NULL, provider_id INT DEFAULT NULL, filename VARCHAR(255) NOT NULL, INDEX IDX_9F54004FA53A8AA (provider_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE logos ADD CONSTRAINT FK_9F54004FA53A8AA FOREIGN KEY (provider_id) REFERENCES provider (id)');
+        $this->addSql('ALTER TABLE logos DROP updated_at');
     }
 
     public function down(Schema $schema) : void
@@ -24,6 +23,6 @@ final class Version20190313195025 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE logos');
+        $this->addSql('ALTER TABLE logos ADD updated_at DATETIME NOT NULL');
     }
 }

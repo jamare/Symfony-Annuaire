@@ -106,9 +106,9 @@ class AccountProType extends AbstractType
                 'multiple' => true,
                 'attr' => array('class' => 'form-control'),
             ))
-            ->add('imageFile', VichImageType::class,[
-                'required' => false
-            ])
+            ->add('logos', CollectionType::class, array(
+                'entry_type' => new ImageType(),
+            ))
             ->add('submit',SubmitType::class)
         ;
     }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -30,6 +31,7 @@ class Logos
      * @Vich\UploadableField(mapping="provider_logo", fileNameProperty="filename")
      */
     private $imageFile;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Provider", inversedBy="logos")
@@ -74,13 +76,15 @@ class Logos
     }
 
     /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
      * @param null|File $imageFile
      * @return Logos
      */
-    public function setImageFile($imageFile)
+    public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
-        return $this;
+
+
     }
 
 }

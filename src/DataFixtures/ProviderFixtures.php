@@ -60,6 +60,7 @@ class ProviderFixtures extends Fixture implements DependentFixtureInterface
             $provider->addService($this->getReference("service_".rand(1,10)));
             $provider->addLogo($logo);
 
+
             $manager->persist($provider);
         }
 
