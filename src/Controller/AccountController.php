@@ -9,6 +9,7 @@ use App\Entity\TempUser;
 use App\Form\RegistrationProviderType;
 use App\Form\RegistrationTempType;
 use App\Form\RegistrationType;
+use App\Services\Mailer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +59,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account_temp", name="register_temp")
      */
-    public function registerTemp(Request $request, \Swift_Mailer $mailer){
+    public function registerTemp(Request $request, Mailer $register_temp){
 
         $tempUser = new TempUser();
 
@@ -71,24 +72,12 @@ class AccountController extends AbstractController
             $token = bin2hex(openssl_random_pseudo_bytes(24));
 
             $tempUser->setToken($token);
-            $type = $tempUser->getType();
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($tempUser);
             $em->flush();
+            $register_temp->registerMail($tempUser);
 
-            $message = (new \Swift_Message('Email de confirmation!'))
-                ->setFrom('eric.jamar@outlook.be')
-                ->setTo($tempUser->getEmail())
-                ->setBody(
-                        "Merci de confirmer votre inscription, veuillez copier cette URL dans votre navigateur: 127.0.0.1:8000/account/$type/$token", 'text/html' );
-
-            $mailer->send($message);
-
-            $this->addFlash(
-                'success',
-                "Votre demande de compte a été enregistrée, un email de confirmation vous a été envoyé  !"
-            );
         }
 
         return $this->render('account/register_temp.html.twig',[
@@ -133,9 +122,7 @@ class AccountController extends AbstractController
                     );
                 }
 
-                return $this->render('account/registration.html.twig',[
-                    'form' => $form->createView()
-                ]);
+                return $this->redirectToRoute('account/login.html.twig');
             }
 
             else if ($type === 'provider') {
@@ -165,9 +152,7 @@ class AccountController extends AbstractController
                 }
 
 
-                return $this->render('account/registration_provider.html.twig',[
-                    'form' => $form->createView()
-                ]);
+                return $this->redirectToRoute('account/login.html.twig');
             }
 
     }
